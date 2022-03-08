@@ -2,14 +2,16 @@ package com.bridgelabz.hotelreservation;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.time.DayOfWeek;
 
 
 public class HotelReservation {
-	private final DateTimeFormatter DATE_RANGE_FORMAT = DateTimeFormatter.ofPattern("ddMMMyyyy");
+	private final static DateTimeFormatter DATE_RANGE_FORMAT = DateTimeFormatter.ofPattern("ddMMMyyyy");
 	ArrayList<HotelInformation> hotels = new ArrayList<>();
 	static Scanner s = new Scanner(System.in);
 	public boolean addHotel() {
@@ -28,16 +30,15 @@ public class HotelReservation {
 		else 
 			return false;
 	}
-	
+
 	public  ArrayList<Hotel> findCheapestHotel(String initialDateRange, String endDateRange) {
 		LocalDate initialDate = LocalDate.parse(initialDateRange, DATE_RANGE_FORMAT);
 		LocalDate endDate = LocalDate.parse(endDateRange, DATE_RANGE_FORMAT);
-		int noOfDaysBetween = (int)ChronoUnit.DAYS.between(initialDate, endDate);
 		ArrayList<Hotel> results = (ArrayList<Hotel>) hotels.stream()
 				.map(hotel -> {
 					Hotel Obj = new Hotel();
 					Obj.setHotelName(hotel.getName());
-					Obj.setTotalRate(hotel.getTotalRate(noOfDaysBetween));
+					Obj.setTotalRate(hotel.getTotalRate(initialDate, endDate));
 					return Obj;
 				})
 				.sorted((type1, type2) -> (int)(type1.getTotalRate() - type2.getTotalRate()))
@@ -53,7 +54,6 @@ public class HotelReservation {
 			System.out.println(hotels.get(i));
 		}
 	}
-
 	public static void main(String[] args) {
 		HotelReservation hotelObj = new HotelReservation();
 		int ans, ch;
@@ -75,6 +75,7 @@ public class HotelReservation {
 				hotelObj.displayHotel();
 				break;
 			case 3:
+				System.out.println("Hotel with cheapest rates are : ");
 				System.out.println(hotelObj.findCheapestHotel("10Sep2021", "11Sep2021"));
 				break;
 			case 4:

@@ -22,7 +22,6 @@ public class Hotel {
 
 	    @Override
 		public String toString() {
-	    	System.out.println("Hotel with cheapest rates are : ");
 			return	" Hotel name : " + hotelName + "  "+
 					" Hotel total rates : " + totalRate ;
 
