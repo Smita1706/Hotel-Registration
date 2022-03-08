@@ -16,8 +16,10 @@ public class HotelReservation {
 		HotelInformation hotel = new HotelInformation();
 		System.out.println("Enter hotel name: ");
 		hotel.setName(s.next());
-		System.out.println("Enter hotel rate: ");
-		hotel.setRates(s.nextInt());
+		System.out.println("Enter hotel weekday rate: ");
+		hotel.setWeekdayRate(s.nextInt());
+		System.out.println("Enter hotel weekend rate: ");
+		hotel.setWeekendRate(s.nextInt());
 		if(hotels.add(hotel)) {
 			System.out.println("Hotel Added");
 			System.out.println("\n");
@@ -26,6 +28,7 @@ public class HotelReservation {
 		else 
 			return false;
 	}
+	
 	public  ArrayList<Hotel> findCheapestHotel(String initialDateRange, String endDateRange) {
 		LocalDate initialDate = LocalDate.parse(initialDateRange, DATE_RANGE_FORMAT);
 		LocalDate endDate = LocalDate.parse(endDateRange, DATE_RANGE_FORMAT);

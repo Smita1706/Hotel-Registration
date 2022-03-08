@@ -4,8 +4,26 @@ public class HotelInformation {
 	private String hotelName;
 	private int hotelRates;
 	private int totalRate;
+	private int weekendRate;
+	private int weekdayRate;
 	public String getName() {
 		return hotelName;
+	}
+
+	public int getWeekendRate() {
+		return weekendRate;
+	}
+
+	public void setWeekendRate(int weekendRate) {
+		this.weekendRate = weekendRate;
+	}
+
+	public int getWeekdayRate() {
+		return weekdayRate;
+	}
+
+	public void setWeekdayRate(int weekdayRate) {
+		this.weekdayRate = weekdayRate;
 	}
 
 	public void setName(String name) {
