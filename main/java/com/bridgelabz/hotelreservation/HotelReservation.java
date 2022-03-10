@@ -72,6 +72,25 @@ public class HotelReservation {
 
 
 	}
+	public ArrayList<Hotel> findBestRatedHotel(String initialDateRange, String endDateRange) {
+        LocalDate initialDate = LocalDate.parse(initialDateRange, DATE_RANGE_FORMAT);
+        LocalDate endDate = LocalDate.parse(endDateRange, DATE_RANGE_FORMAT);
+
+        ArrayList<Hotel> results = (ArrayList<Hotel>) hotels.stream()
+                .map(hotel -> {
+                	Hotel Obj = new Hotel();
+                	Obj.setHotelName(hotel.getName());
+                	Obj.setTotalRate(hotel.getTotalRate(initialDate, endDate));
+                   Obj.setRating(hotel.getRating());
+                    return Obj;
+                })
+                .sorted(Comparator.comparing(Hotel::getRating, Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+
+        return (ArrayList<Hotel>) results.stream()
+                .filter(result -> result.getRating() == results.get(0).getRating())
+                .collect(Collectors.toList());
+    }
 	public void displayHotel() {
 		System.out.println("\nHotels Present in Hotel Reservation System:");
 		for(int i=0;i<hotels.size();i++) {
@@ -87,7 +106,8 @@ public class HotelReservation {
 			System.out.println("2.Display hotels");
 			System.out.println("3.Show cheapest hotel");
 			System.out.println("4.Show cheapest hotel with ratings");
-			System.out.println("5.Exit");
+			System.out.println("5.Best Rating Hotel");
+			System.out.println("6.Exit");
 			ch = s.nextInt();
 			switch(ch) {
 			case 1: 
@@ -108,6 +128,10 @@ public class HotelReservation {
                 System.out.println(hotelObj.findCheapestRatedHotel("11Sep2020", "12Sep2020"));
                 break;
 			case 5:
+				System.out.println("\n Hotel with Best ratings: ");
+                System.out.println(hotelObj.findBestRatedHotel("11Sep2020", "12Sep2020"));
+                break;
+			case 6:
                 break;
 			}
 			System.out.println("Do you want to continue? if yes press '1' ");

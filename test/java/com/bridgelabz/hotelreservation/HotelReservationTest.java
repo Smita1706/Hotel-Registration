@@ -46,4 +46,13 @@ public class HotelReservationTest {
 		String expected = arr.get(0).getHotelName();
 		Assert.assertEquals("Bridgewood" , expected);
 	}
+	
+	@Test
+	public void givenHotelInfo_shouldReturnBestRatingHotel() {
+		for(int i=1;i<=3;i++)
+			hotel.addHotel();
+		ArrayList<Hotel> arr = hotel.findBestRatedHotel("11Sep2021", "12Sep2021");
+		String expected = arr.get(0).getHotelName();
+		Assert.assertEquals("Ridgewood" , expected);
+	}
 }
