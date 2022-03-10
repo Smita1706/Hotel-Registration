@@ -22,6 +22,8 @@ public class HotelReservation {
 		hotel.setWeekdayRate(s.nextInt());
 		System.out.println("Enter hotel weekend rate: ");
 		hotel.setWeekendRate(s.nextInt());
+		System.out.println("Enter hotel rating: ");
+		hotel.setRating(s.nextInt());
 		if(hotels.add(hotel)) {
 			System.out.println("Hotel Added");
 			System.out.println("\n");

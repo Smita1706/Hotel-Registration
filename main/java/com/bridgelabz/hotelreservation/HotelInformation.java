@@ -10,6 +10,7 @@ public class HotelInformation {
 	private int totalRate;
 	private int weekendRate;
 	private int weekdayRate;
+	private int rating;
 	public String getName() {
 		return hotelName;
 	}
@@ -80,8 +81,17 @@ public class HotelInformation {
 		return	"\n Hotel name : " + hotelName + 
 				//"\n Hotel Rates : " + hotelRates ;
 				"\n Hotel weekend Rates : " + weekendRate +
-				"\n Hotel weekday Rates : " + weekdayRate ;
+				"\n Hotel weekday Rates : " + weekdayRate +
+		"\n Hotel Ratings : " + rating ;
 
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 
 }
