@@ -3,6 +3,7 @@ package com.bridgelabz.hotelreservation;
 public class Hotel {
 	 private String hotelName;
 	    private int totalRate;
+	    private int rating;
 
 	    public String getHotelName() {
 	        return hotelName;
@@ -25,5 +26,13 @@ public class Hotel {
 			return	" Hotel name : " + hotelName + "  "+
 					" Hotel total rates : " + totalRate ;
 
+		}
+
+		public int getRating() {
+			return rating;
+		}
+
+		public void setRating(int rating) {
+			this.rating = rating;
 		}
 }

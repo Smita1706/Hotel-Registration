@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.time.DayOfWeek;
@@ -32,7 +33,28 @@ public class HotelReservation {
 		else 
 			return false;
 	}
+	public ArrayList<Hotel> findCheapestRatedHotel(String initialDateRange, String endDateRange) {
+        LocalDate initialDate = LocalDate.parse(initialDateRange, DATE_RANGE_FORMAT);
+        LocalDate endDate = LocalDate.parse(endDateRange, DATE_RANGE_FORMAT);
 
+        ArrayList<Hotel> results = (ArrayList<Hotel>) hotels.stream()
+                .map(hotel -> {
+                	Hotel Obj = new Hotel();
+                	Obj.setHotelName(hotel.getName());
+                	Obj.setTotalRate(hotel.getTotalRate(initialDate, endDate));
+                   Obj.setRating(hotel.getRating());
+                    return Obj;
+                })
+                .sorted(Comparator.comparing(Hotel::getTotalRate).thenComparing(Hotel::getRating,
+                        Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+
+        return (ArrayList<Hotel>) results.stream()
+                .filter(result ->
+                        result.getTotalRate() == results.get(0).getTotalRate()
+                                && result.getRating() == results.get(0).getRating())
+                .collect(Collectors.toList());
+    }
 	public  ArrayList<Hotel> findCheapestHotel(String initialDateRange, String endDateRange) {
 		LocalDate initialDate = LocalDate.parse(initialDateRange, DATE_RANGE_FORMAT);
 		LocalDate endDate = LocalDate.parse(endDateRange, DATE_RANGE_FORMAT);
@@ -64,7 +86,8 @@ public class HotelReservation {
 			System.out.println("1.Add hotel ");
 			System.out.println("2.Display hotels");
 			System.out.println("3.Show cheapest hotel");
-			System.out.println("4.Exit");
+			System.out.println("4.Show cheapest hotel with ratings");
+			System.out.println("5.Exit");
 			ch = s.nextInt();
 			switch(ch) {
 			case 1: 
@@ -78,10 +101,14 @@ public class HotelReservation {
 				break;
 			case 3:
 				System.out.println("Hotel with cheapest rates are : ");
-				System.out.println(hotelObj.findCheapestHotel("10Sep2021", "11Sep2021"));
+				System.out.println(hotelObj.findCheapestHotel("11Sep2021", "12Sep2021"));
 				break;
 			case 4:
-				break;
+				System.out.println("\n Hotel with cheapest ratings: ");
+                System.out.println(hotelObj.findCheapestRatedHotel("11Sep2020", "12Sep2020"));
+                break;
+			case 5:
+                break;
 			}
 			System.out.println("Do you want to continue? if yes press '1' ");
 			ans = s.nextInt();
